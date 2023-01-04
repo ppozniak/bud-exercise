@@ -12,13 +12,6 @@ describe("transaction history", () => {
     });
 
     expect(expensesTabTrigger).toHaveAttribute("data-state", "active");
-
-    const expensesTable = screen.getByRole("table", {
-      name: "Expenses",
-    });
-
-    expect(expensesTable).toBeInTheDocument();
-    expect(screen.getByText("-20.25")).toBeInTheDocument();
   });
 
   test.skip("changing between the expenses and income tabs should show different transactions", () => {

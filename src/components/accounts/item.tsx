@@ -7,9 +7,9 @@ type Props = {
 
 export const AccountItem = ({ account }: Props) => {
   return (
-    <div className="account">
+    <li className="account">
       <div className="total">Total {account.balance.amount.currency}</div>
       <strong>{account.balance.amount.value}</strong>
-    </div>
+    </li>
   );
 };

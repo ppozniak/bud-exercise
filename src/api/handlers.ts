@@ -3,7 +3,8 @@ import { accounts } from "./data/accounts";
 import { transactions } from "./data/transactions";
 
 const isTest = process.env.NODE_ENV === "test";
-const duration = isTest ? 0 : 2000;
+// Note: Duration is set to just 5ms to avoid issues where state updates after test has finished
+const duration = isTest ? 5 : 2000;
 
 const statusCode = 200;
 

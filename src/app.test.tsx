@@ -1,11 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import App from "./app";
 
-// @TODO: Fix annoying 'act' error
-it.skip("App renders without crashing", () => {
-  render(<App />);
+describe("<App />", () => {
+  it("App renders without crashing", () => {
+    render(<App />);
 
-  expect(true).toBeTruthy();
-
-  expect(screen.getByText("Your accounts")).toBeInTheDocument();
+    expect(screen.getByText("Your accounts")).toBeInTheDocument();
+  });
 });

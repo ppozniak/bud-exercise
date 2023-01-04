@@ -1,7 +1,17 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { TransactionHistory } from ".";
 
-describe("transaction history", () => {
+describe("<TransactionHistory />", () => {
+  test("loading state should be shown when loading", () => {
+    render(<TransactionHistory />);
+
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
+
+    waitFor(() => {
+      expect(screen.getByText("Loading...")).not.toBeInTheDocument();
+    });
+  });
+
   test("the expenses tab should be shown by default", () => {
     render(<TransactionHistory />);
 

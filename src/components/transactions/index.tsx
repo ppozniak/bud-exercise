@@ -5,13 +5,18 @@ import "./index.css";
 import useSWR from "swr";
 import { isExpense, isIncome } from "./utils";
 import TransactionsTable from "./list";
+import { Loading } from "../loading";
 
 export const TransactionHistory = () => {
-  const { data } = useSWR<Transaction[]>("/api/transactions", fetcher);
+  const { data, isLoading } = useSWR<Transaction[]>(
+    "/api/transactions",
+    fetcher
+  );
 
   const expenses = data?.filter(isExpense) || [];
   const income = data?.filter(isIncome) || [];
 
+  // @TODO: Ideally we would want to lazy fetch expenses/income based off which tab is active
   return (
     <>
       <h1 className="align-left">Transaction History</h1>
@@ -21,13 +26,18 @@ export const TransactionHistory = () => {
           <Tabs.Trigger value="income">Income</Tabs.Trigger>
         </Tabs.List>
 
-        <Tabs.Content className="TabsContent" value="expenses">
-          <TransactionsTable transactions={expenses} label="Expenses" />
-        </Tabs.Content>
-
-        <Tabs.Content className="TabsContent" value="income">
-          <TransactionsTable transactions={income} label="Income" />
-        </Tabs.Content>
+        {!isLoading ? (
+          <>
+            <Tabs.Content className="TabsContent" value="expenses">
+              <TransactionsTable transactions={expenses} label="Expenses" />
+            </Tabs.Content>
+            <Tabs.Content className="TabsContent" value="income">
+              <TransactionsTable transactions={income} label="Income" />
+            </Tabs.Content>
+          </>
+        ) : (
+          <Loading />
+        )}
       </Tabs.Root>
     </>
   );

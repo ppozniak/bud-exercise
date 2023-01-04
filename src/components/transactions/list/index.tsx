@@ -6,7 +6,7 @@ interface IProps {
   label: string;
 }
 
-const TransactionsTable = ({ transactions, label }: IProps) => {
+export const TransactionsTable = ({ transactions, label }: IProps) => {
   return (
     <table aria-label={label}>
       <thead>
@@ -24,5 +24,3 @@ const TransactionsTable = ({ transactions, label }: IProps) => {
     </table>
   );
 };
-
-export default TransactionsTable;

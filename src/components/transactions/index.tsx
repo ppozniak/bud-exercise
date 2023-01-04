@@ -4,7 +4,7 @@ import { fetcher } from "../../utils/fetcher";
 import "./index.css";
 import useSWR from "swr";
 import { isExpense, isIncome } from "./utils";
-import TransactionsTable from "./list";
+import { TransactionsTable } from "./list";
 import { Loading } from "../loading";
 
 export const TransactionHistory = () => {

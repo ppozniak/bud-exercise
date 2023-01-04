@@ -1,11 +1,11 @@
-import type { Transaction as TransactionType } from "../../../types";
-import { Avatar } from "./avatar";
+import type { Transaction as TransactionType } from "../../../../types";
+import { Avatar } from "../avatar";
 
 type Props = {
   transaction: TransactionType;
 };
 
-export const Transaction = ({ transaction }: Props) => (
+export const TransactionRowItem = ({ transaction }: Props) => (
   <tr>
     <td>
       <div className="transaction-detail">

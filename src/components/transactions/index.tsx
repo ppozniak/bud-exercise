@@ -1,52 +1,17 @@
 import * as Tabs from "@radix-ui/react-tabs";
-import { Transaction as TransactionType } from "../../../types";
-import { transactions } from "../../api/data/transactions";
+import { Transaction } from "../../../types";
+import { fetcher } from "../../utils/fetcher";
 import "./index.css";
-import { Transaction } from "./item";
-
-const isExpense = (transaction: TransactionType) =>
-  transaction.amount.value < 0;
-const isIncome = (transaction: TransactionType) => transaction.amount.value > 0;
-
-const Expenses = () => {
-  return (
-    <table aria-label="Expenses">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Date</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        {transactions.filter(isExpense).map((transaction) => (
-          <Transaction transaction={transaction} key={transaction.id} />
-        ))}
-      </tbody>
-    </table>
-  );
-};
-
-const Income = () => {
-  return (
-    <table aria-label="Income">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Date</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        {transactions.filter(isIncome).map((transaction) => (
-          <Transaction transaction={transaction} key={transaction.id} />
-        ))}
-      </tbody>
-    </table>
-  );
-};
+import useSWR from "swr";
+import { isExpense, isIncome } from "./utils";
+import TransactionsTable from "./list";
 
 export const TransactionHistory = () => {
+  const { data } = useSWR<Transaction[]>("/api/transactions", fetcher);
+
+  const expenses = data?.filter(isExpense) || [];
+  const income = data?.filter(isIncome) || [];
+
   return (
     <>
       <h1 className="align-left">Transaction History</h1>
@@ -57,10 +22,11 @@ export const TransactionHistory = () => {
         </Tabs.List>
 
         <Tabs.Content className="TabsContent" value="expenses">
-          <Expenses />
+          <TransactionsTable transactions={expenses} label="Expenses" />
         </Tabs.Content>
+
         <Tabs.Content className="TabsContent" value="income">
-          <Income />
+          <TransactionsTable transactions={income} label="Income" />
         </Tabs.Content>
       </Tabs.Root>
     </>

@@ -1,3 +1,5 @@
+/* @TODO: Split styles to separate files  */
+
 .tabs {
   margin-top: var(--spacer-medium);
 }
@@ -10,17 +12,17 @@
 
 .avatar {
   user-select: none;
-  width: var(--spacer-xxlarge);
-  height: var(--spacer-xxlarge);
-  font-size: var(--font-xlarge);
+  width: 48px;
+  height: 48px;
+  font-size: var(--font-large);
   font-weight: 600;
   border: 2px solid var(--primary-300);
   background-color: var(--background-900);
   text-transform: uppercase;
+  display: flex;
   justify-content: center;
   align-items: center;
   border-radius: var(--brad-medium);
-  display: flex;
 }
 
 .transactions-table {
@@ -47,4 +49,13 @@
   display: grid;
   grid-template-columns: min-content 1fr;
   gap: var(--spacer-medium);
+}
+
+.transaction-category {
+  font-size: var(--font-small);
+  color: var(--primary-300);
+}
+
+.transaction-amount {
+  font-weight: 500;
 }

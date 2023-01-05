@@ -84,6 +84,10 @@ button[data-state="active"] {
   --primary-300: #000000;
 }
 
+.page {
+  padding-top: 2.5rem;
+}
+
 .align-left {
   text-align: left;
 }

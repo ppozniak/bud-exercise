@@ -1,4 +1,5 @@
 /* @TODO: Split styles to separate files  */
+/* @TODO: Switch to BEM  */
 
 .tabs {
   margin-top: var(--spacer-medium);

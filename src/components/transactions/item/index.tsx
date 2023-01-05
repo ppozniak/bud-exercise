@@ -1,3 +1,4 @@
+import format from "date-fns/format";
 import type { Transaction } from "../../../../types";
 import { formatCurrency } from "../../../utils/currency";
 import { Avatar } from "../avatar";
@@ -8,6 +9,7 @@ type Props = {
 
 export const TransactionRowItem = ({ transaction }: Props) => {
   const currency = transaction.amount.currency_iso;
+  const date = new Date(transaction.date);
   return (
     <tr>
       <td>
@@ -20,7 +22,7 @@ export const TransactionRowItem = ({ transaction }: Props) => {
         </div>
       </td>
       <td>
-        <div>{transaction.date}</div>
+        <div>{format(date, "dd MMMM y")}</div>
       </td>
       <td className="transaction-amount">
         <div className="amount">

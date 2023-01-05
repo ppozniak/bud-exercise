@@ -10,8 +10,15 @@
   background: var(--background-800);
   padding: var(--spacer-large);
   text-align: left;
+  border-radius: var(--brad-small);
 }
 
-.total {
+.account__total {
   color: var(--primary-300);
+  margin-bottom: var(--spacer-small);
+  line-height: 1.38;
+}
+
+.account__currency {
+  font-size: var(--font-large);
 }

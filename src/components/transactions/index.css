@@ -45,6 +45,12 @@
   font-weight: normal;
 }
 
+/* Align last cells to right */
+.transactions-table tr > td:last-child,
+.transactions-table tr > th:last-child {
+  text-align: right;
+}
+
 .transaction-detail {
   display: grid;
   grid-template-columns: min-content 1fr;

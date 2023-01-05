@@ -24,14 +24,12 @@
   color: var(--primary-900);
   background-color: var(--background-900);
   font-synthesis: none;
-  width: 90vw;
-  max-width: 800px;
+
   margin: auto;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  margin-top: 2rem;
   margin-bottom: 2rem;
 }
 

@@ -1,0 +1,6 @@
+.site-header {
+  border-bottom: 1px solid var(--background-800);
+  height: 71px;
+  display: flex;
+  align-items: center;
+}

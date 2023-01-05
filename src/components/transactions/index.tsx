@@ -6,11 +6,13 @@ import useSWR from "swr";
 import { isExpense, isIncome } from "./utils";
 import { TransactionsTable } from "./list";
 import { Loading } from "../loading";
+import { ErrorMessage } from "../error-message";
 
 export const TransactionHistory = () => {
-  const { data, isLoading } = useSWR<Transaction[]>(
+  const { data, isLoading, error } = useSWR<Transaction[]>(
     "/api/transactions",
-    fetcher
+    fetcher,
+    { shouldRetryOnError: false }
   );
 
   const expenses = data?.filter(isExpense) || [];
@@ -25,6 +27,8 @@ export const TransactionHistory = () => {
           <Tabs.Trigger value="expenses">Expenses</Tabs.Trigger>
           <Tabs.Trigger value="income">Income</Tabs.Trigger>
         </Tabs.List>
+
+        {!!error && !isLoading && <ErrorMessage error={error} />}
 
         {!isLoading ? (
           <>

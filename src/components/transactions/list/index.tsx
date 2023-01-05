@@ -7,6 +7,8 @@ interface IProps {
 }
 
 export const TransactionsTable = ({ transactions, label }: IProps) => {
+  if (!transactions.length) return null;
+  
   return (
     <table aria-label={label}>
       <thead>

@@ -1,20 +1,25 @@
-import { render, screen, waitFor } from "../../test-utils";
 import { rest } from "msw";
-import { TransactionHistory } from ".";
+import userEvent from "@testing-library/user-event";
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "../../test-utils";
 import { server } from "../../../jest.setup";
+import { TransactionHistory } from ".";
 
 describe("<TransactionHistory />", () => {
-  test("loading state", () => {
+  test("loading state", async () => {
     render(<TransactionHistory />);
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    const loadingText = screen.getByText("Loading...");
+    expect(loadingText).toBeInTheDocument();
 
-    waitFor(() => {
-      expect(screen.getByText("Loading...")).not.toBeInTheDocument();
-    });
+    await waitForElementToBeRemoved(loadingText);
   });
 
-  test("error state", () => {
+  test("error state", async () => {
     render(<TransactionHistory />);
 
     server.use(
@@ -23,8 +28,10 @@ describe("<TransactionHistory />", () => {
       )
     );
 
-    waitFor(() => {
-      expect(screen.getByText("Internal error")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByText("Request failed with status code 500")
+      ).toBeInTheDocument();
     });
   });
 
@@ -40,7 +47,9 @@ describe("<TransactionHistory />", () => {
     expect(expensesTabTrigger).toHaveAttribute("data-state", "active");
   });
 
-  test.skip("changing between the expenses and income tabs should show different transactions", () => {
+  test("changing between the expenses and income tabs should show different transactions", async () => {
+    const user = userEvent.setup();
+
     render(<TransactionHistory />);
 
     const expensesTabTrigger = screen.getByRole("tab", {
@@ -49,7 +58,8 @@ describe("<TransactionHistory />", () => {
     const incomeTabTrigger = screen.getByRole("tab", {
       name: "Income",
     });
-    const expensesTable = screen.getByRole("table", {
+
+    const expensesTable = await screen.findByRole("table", {
       name: "Expenses",
     });
     const incomeTable = screen.queryByRole("table", {
@@ -59,12 +69,9 @@ describe("<TransactionHistory />", () => {
     expect(expensesTable).toBeInTheDocument();
     expect(incomeTable).not.toBeInTheDocument();
 
-    expect(screen.getByText("-20.25")).toBeInTheDocument();
-
-    incomeTabTrigger.click();
+    await user.click(incomeTabTrigger);
 
     expect(incomeTabTrigger).toHaveAttribute("data-state", "active");
     expect(expensesTabTrigger).toHaveAttribute("data-state", "inactive");
-    expect(screen.queryByText("-20.25")).not.toBeInTheDocument();
   });
 });

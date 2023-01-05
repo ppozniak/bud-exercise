@@ -1,7 +1,7 @@
-import format from "date-fns/format";
 import type { Transaction } from "../../../../types";
 import { formatCurrency } from "../../../utils/currency";
 import { Avatar } from "../avatar";
+import { format } from "date-fns";
 
 type Props = {
   transaction: Transaction;

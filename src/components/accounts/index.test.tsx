@@ -1,30 +1,35 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "../../test-utils";
 import { rest } from "msw";
 import { server } from "../../../jest.setup";
 import { Accounts } from "./index";
 
 describe("<Accounts />", () => {
-  test("loading state", () => {
+  test("loading state", async () => {
     render(<Accounts />);
 
     expect(screen.getByText("Getting your accounts")).toBeInTheDocument();
 
-    waitFor(() => {
-      expect(screen.getByText("Getting your accounts")).not.toBeInTheDocument();
-    });
+    await waitForElementToBeRemoved(screen.getByText("Getting your accounts"));
   });
 
-  test("error state", () => {
-    render(<Accounts />);
-
+  test("error state", async () => {
     server.use(
-      rest.get("/api/transactions", (req, res, ctx) =>
+      rest.get("/api/accounts", (req, res, ctx) =>
         res(ctx.status(500), ctx.json([]))
       )
     );
 
-    waitFor(() => {
-      expect(screen.getByText("Internal error")).toBeInTheDocument();
+    render(<Accounts />);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText("Request failed with status code 500")
+      ).toBeInTheDocument();
     });
   });
 });

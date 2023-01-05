@@ -10,7 +10,7 @@ export const TransactionsTable = ({ transactions, label }: IProps) => {
   if (!transactions.length) return null;
   
   return (
-    <table aria-label={label}>
+    <table className="transactions-table" aria-label={label}>
       <thead>
         <tr>
           <th>Description</th>

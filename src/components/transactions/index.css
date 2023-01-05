@@ -14,31 +14,33 @@
   height: var(--spacer-xxlarge);
   font-size: var(--font-xlarge);
   font-weight: 600;
-  border-radius: var(--spacer-smallall);
   border: 2px solid var(--primary-300);
   background-color: var(--background-900);
   text-transform: uppercase;
   justify-content: center;
   align-items: center;
+  border-radius: var(--brad-medium);
   display: flex;
 }
 
-table {
+.transactions-table {
   background-color: var(--background-800);
-  border-radius: var(--spacer-smallall);
+  border-radius: var(--brad-medium);
   width: 100%;
   text-align: left;
+  border-collapse: collapse;
 }
 
-td {
-  padding: var(--spacer-medium);
+.transactions-table td {
+  padding: var(--spacer-medium) var(--spacer-small);
 }
 
-th {
-  color: var(--primary-900);
-  border-bottom: 1px solid var(--primary-300);
-  padding: var(--spacer-medium);
+.transactions-table th {
+  color: var(--primary-300);
+  border-bottom: 1px solid var(--primary-100);
+  padding: var(--spacer-medium) var(--spacer-small);
   text-align: left;
+  font-weight: normal;
 }
 
 .transaction-detail {

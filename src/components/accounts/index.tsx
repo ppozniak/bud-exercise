@@ -18,7 +18,7 @@ export const Accounts = () => {
 
   return (
     <>
-      <h1 className="align-left">Your accounts</h1>
+      <h2 className="align-left h2">Your accounts</h2>
 
       {!!error && !isLoading && <ErrorMessage error={error} />}
 

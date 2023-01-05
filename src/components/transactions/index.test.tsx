@@ -1,14 +1,30 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import { rest } from "msw";
 import { TransactionHistory } from ".";
+import { server } from "../../../jest.setup";
 
 describe("<TransactionHistory />", () => {
-  test("loading state should be shown when loading", () => {
+  test("loading state", () => {
     render(<TransactionHistory />);
 
     expect(screen.getByText("Loading...")).toBeInTheDocument();
 
     waitFor(() => {
       expect(screen.getByText("Loading...")).not.toBeInTheDocument();
+    });
+  });
+
+  test("error state", () => {
+    render(<TransactionHistory />);
+
+    server.use(
+      rest.get("/api/transactions", (req, res, ctx) =>
+        res(ctx.status(500), ctx.json([]))
+      )
+    );
+
+    waitFor(() => {
+      expect(screen.getByText("Internal error")).toBeInTheDocument();
     });
   });
 

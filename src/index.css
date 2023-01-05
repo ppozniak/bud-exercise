@@ -91,3 +91,7 @@ button[data-state="active"] {
 .flow > * + * {
   margin-top: var(--spacer-medium);
 }
+
+.flow-xxl > * + * {
+  margin-top: var(--spacer-xxlarge);
+}

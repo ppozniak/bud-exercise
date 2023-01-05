@@ -20,7 +20,7 @@ export const TransactionHistory = () => {
 
   // @TODO: Ideally we would want to lazy fetch expenses/income based off which tab is active
   return (
-    <>
+    <div>
       <h2 className="align-left h2">Transaction History</h2>
       <Tabs.Root defaultValue="expenses" className="flow">
         <Tabs.List className="tabs__list" aria-label="Filter your transactions">
@@ -43,6 +43,6 @@ export const TransactionHistory = () => {
           <Loading />
         )}
       </Tabs.Root>
-    </>
+    </div>
   );
 };

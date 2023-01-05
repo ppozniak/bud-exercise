@@ -17,7 +17,7 @@ export const Accounts = () => {
   );
 
   return (
-    <>
+    <div>
       <h2 className="align-left h2">Your accounts</h2>
 
       {!!error && !isLoading && <ErrorMessage error={error} />}
@@ -31,6 +31,6 @@ export const Accounts = () => {
       ) : (
         <Loading message="Getting your accounts" />
       )}
-    </>
+    </div>
   );
 };

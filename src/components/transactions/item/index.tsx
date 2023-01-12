@@ -1,8 +1,7 @@
 import type { Transaction } from "../../../../types";
 import { formatCurrency } from "../../../utils/currency";
 import { Avatar } from "../avatar";
-import { format } from "date-fns";
-import { capitalize, replace } from "lodash";
+import { capitalize } from "../../../utils/string";
 
 type Props = {
   transaction: Transaction;
@@ -10,8 +9,14 @@ type Props = {
 
 export const TransactionRowItem = ({ transaction }: Props) => {
   const currency = transaction.amount.currency_iso;
-  const date = new Date(transaction.date);
-  const category = replace(capitalize(transaction.category), "_", " ");
+  // e.g 24 January 2022
+  const category = capitalize(transaction.category).replace('_', ' ')
+  const date = new Date(transaction.date).toLocaleDateString('en-gb', {
+    day: '2-digit',
+    year: "numeric",
+    month: 'long'
+  });
+
   return (
     <tr>
       <td>
@@ -23,7 +28,7 @@ export const TransactionRowItem = ({ transaction }: Props) => {
           </div>
         </div>
       </td>
-      <td>{format(date, "dd MMMM y")}</td>
+      <td>{date}</td>
       <td className="transaction-amount">
         {formatCurrency(transaction.amount.value, currency)}
       </td>

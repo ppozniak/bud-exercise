@@ -3,18 +3,17 @@ import { accounts } from "./data/accounts";
 import { transactions } from "./data/transactions";
 
 const isTest = process.env.NODE_ENV === "test";
-// Note: Duration is set to just 5ms to avoid issues where state updates after test has finished
-const duration = isTest ? 5 : 2000;
+const getDelay = (delay?: number) => isTest ? 0 : delay; 
 
 const statusCode = 200;
 
 export const handlers = [
-  // this api is almost instant
   rest.get("/api/accounts", (req, res, ctx) =>
-    res(ctx.delay(), ctx.status(statusCode), ctx.json(accounts))
+    // instant api
+    res(ctx.delay(getDelay()), ctx.status(statusCode), ctx.json(accounts))
   ),
-  // this api takes two seconds
   rest.get("/api/transactions", (req, res, ctx) =>
-    res(ctx.delay(duration), ctx.status(statusCode), ctx.json(transactions))
+    // delayed api
+    res(ctx.delay(getDelay(2000)), ctx.status(statusCode), ctx.json(transactions))
   ),
 ];

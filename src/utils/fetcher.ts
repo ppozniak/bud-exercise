@@ -1,7 +1,14 @@
-import axios from "axios";
-
 /**
  * Mainly used for useSWR hook
  * @param {string} url
  */
-export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
+export const fetcher = async (url: string) => {
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error(res.statusText)
+  }
+
+  return res.json()
+}

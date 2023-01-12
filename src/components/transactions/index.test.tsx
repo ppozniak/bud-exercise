@@ -30,7 +30,7 @@ describe("<TransactionHistory />", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText("Request failed with status code 500")
+        screen.getByText("Internal Server Error")
       ).toBeInTheDocument();
     });
   });
